@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>三浦ちゃんねる</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <h1>スレッドに書き込む</h1>
+    <img src="http://www.2ch.net/2ch-logo.gif">
+    <form method="post" action="/responses/post/<%= @id %>">
+      <label for="name">名前：</label>
+      <input type="text" name="name" id="name"><br />
+      <label for="mail">メールアドレス：</label>
+      <input type="text" name="mail" id="mail"><br />
+      <label for="text">内容</label>
+      <input type="text" name="text" id="text"><br />
+      <button type="submit">書き込む</button>
+    </form>
+  </body>
+</html>

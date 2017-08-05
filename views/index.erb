@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>三浦ちゃんねる</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <h1>三浦ちゃんねるにようこそ！</h1>
+    <img src="http://www.2ch.net/2ch-logo.gif">
+    <p>節度を保ってお楽しみください！</p>
+    <h1>板一覧(1個しかないです！）</h1>
+    <ul>
+      <% @boards.each do |board| %>
+        <li><a href="http://localhost:4567/board"><%= board["name"] %></a></li>
+      <% end %>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>三浦ちゃんねる</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <h1>三浦ちゃんねるにようこそ！</h1>
+    <p>節度を保ってお楽しみください！</p>
+    <h1>スレッド一覧</h1>
+    <ul>
+      <% @threads.each.with_index(1) do |thread, i| %>
+        <li><a href="http://localhost:4567/thread/<%= thread["id"] %>">
+        <%= i %> ： <%= thread["title"] %></a></li>
+      <% end %>
+    </ul>
+    <p><a href="/threads/new">スレッドを立てる</a></p>
+    <p><a href="/">トップへ戻る</a></p>
+  </body>
+</html>
