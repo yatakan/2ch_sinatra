@@ -3,26 +3,28 @@
   <head>
     <meta charset="UTF-8">
     <title>三浦ちゃんねる</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/css/style.css">
   </head>
 
   <body>
-    <h1><%= @threads[0]["title"] %></h1>
     <p><a href="/responses/new/<%= @threads[0]["id"] %>">このスレッドに書き込む</a></p>
-    <ul>
-      <li>1 </li>
-      <li>名前 <%= @threads[0]["name"] %></li>
-      <li>メールアドレス <%= @threads[0]["mail"] %></li>
-      <li><%= @threads[0]["text"] %></li>
-    </ul>
-      <% @responses.each.with_index(2) do |response, i| %>
-        <ul>
-          <li><%= i %></li>
-          <li>名前 <%= response["name"] %> </li>
-          <li>メールアドレス <%= response["mail"] %> </li>
-          <li><%= response["text"] %></a></li>
-        </ul>
-      <% end %>
-    <p><a href="/board">スレッド一覧へ戻る</a></p>
+    <div class="thread">
+      <h1><%= @threads[0]["title"] %></h1>
+      <ul>
+        <li>1 </li>
+        <li>名前 <%= @threads[0]["name"] %></li>
+        <li>メールアドレス <%= @threads[0]["mail"] %></li>
+        <li><%= @threads[0]["text"] %></li>
+      </ul>
+        <% @responses.each.with_index(2) do |response, i| %>
+          <ul>
+            <li><%= i %></li>
+            <li>名前 <%= response["name"] %> </li>
+            <li>メールアドレス <%= response["mail"] %> </li>
+            <li><%= response["text"] %></a></li>
+          </ul>
+        <% end %>
+      <p><a href="/board">スレッド一覧へ戻る</a></p>
+    </div>
   </body>
 </html>

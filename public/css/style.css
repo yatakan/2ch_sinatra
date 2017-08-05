@@ -1,0 +1,74 @@
+.top-image {
+  margin: 0 auto;
+  display: block;
+}
+
+body {
+  background-image: url("http://www2.2ch.net/ba.gif");
+}
+
+header {
+  margin: 20px auto;
+  width: 1000px;
+  height: 300px;
+  background-color: #CFC;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+header h1 {
+  background-color: #39F;
+  color: white;
+}
+
+nav {
+  margin: 20px auto;
+  width: 1000px;
+  height: 400px;
+  background-color: #CFC;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+nav h1 {
+  background-color: #39F;
+  color: white;
+}
+
+.navigation {
+  width: 1000px;
+  height: 300px;
+  overflow: scroll;
+  background-color: #BEB;
+}
+
+.thread {
+  margin: 20px auto;
+  width: 1000px;
+  background-color: #EFEFEF;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.thread h1 {
+  font-size: 1.75em;
+  color: red;
+  margin: 30px;
+}
+
+.thread ul li {
+  float: left;
+  list-style: none;
+  padding-left: 20px;
+}
+
+.thread .text {
+  clear: both;
+  padding-left: 50px;
+}
+
+.thread ul:after {
+  content: "";
+  clear: both;
+  display: block;
+}

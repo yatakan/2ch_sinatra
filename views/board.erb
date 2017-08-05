@@ -2,21 +2,54 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8">
-    <title>三浦ちゃんねる</title>
-    <link rel="stylesheet" href="style.css">
+    <title>自作自演板＠3ch掲示板</title>
+    <link rel="stylesheet" href="/css/style.css">
   </head>
 
   <body>
-    <h1>三浦ちゃんねるにようこそ！</h1>
-    <p>節度を保ってお楽しみください！</p>
-    <h1>スレッド一覧</h1>
-    <ul>
-      <% @threads.each.with_index(1) do |thread, i| %>
-        <li><a href="http://localhost:4567/thread/<%= thread["id"] %>">
-        <%= i %> ： <%= thread["title"] %></a></li>
-      <% end %>
-    </ul>
+    <img src="http://www2.2ch.net/2ch.gif" class="top-image">
+    <header>
+      <h1>自作自演＠3ch掲示板</h1>
+      <p>俺しかいない</p>
+    </header>
+
+    <nav>
+      <h1>スレッド一覧</h1>
+      <div class="navigation">
+        <ul>
+          <% @threads.each.with_index(1) do |thread, i| %>
+            <li><a href="http://localhost:4567/thread/<%= thread["id"] %>">
+            <%= i %> ： <%= thread["title"] %></a></li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+
     <p><a href="/threads/new">スレッドを立てる</a></p>
     <p><a href="/">トップへ戻る</a></p>
+    <div class="contents">
+      <% @threads.zip(@all_responses).each do |thread, responses| %>
+        <div class="thread">
+          <h1><%= thread["title"] %></h1>
+            <ul>
+              <li>1 </li>
+              <li><a href="mailto:<%= thread["mail"] %>"><%= thread["name"] %></a></li>
+              <li class="text"><%= thread["text"] %></li>
+            </ul>
+          <% responses.each.with_index(2) do |response, i| %>
+            <ul>
+              <li><%= i %></li>
+              <li>名前 <%= response["name"] %> </li>
+              <li>メールアドレス <%= response["mail"] %> </li>
+              <li class="text"><%= response["text"] %></a></li>
+            </ul>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <footer>
+      <p>3ch BBS Sinatra</p>
+    </footer>
   </body>
 </html>
