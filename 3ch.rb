@@ -61,7 +61,7 @@ end
 
 ##################スレ###########################
 
-get '/thread/:id' do |id|
+get '/threads/:id' do |id|
 
   #スレッド内の書き込みを取得する
   results = client.query("SELECT * FROM responses WHERE thread_id=#{id}")
@@ -134,18 +134,22 @@ get '/threads/:thread_id/:response_id' do
     @responses << result
   end
 
-  # 必要なレスを取り出して、番号を付ける。
-  puts "-------------------------------------------"
-  puts params[:response_id]
-  if params[:response_id] == "1"
-    @its_one = true
+  #要求されたレスがない場合
+  if @responses.length < params[:response_id].to_i - 2
+    erb "そんなスレor書き込みないです。。。。。。。。"
   else
-    @res = @responses[params[:response_id].to_i - 2]
-    @number = params[:response_id].to_i
-  end
+    # 必要なレスを取り出して、番号を付ける。
+    puts "-------------------------------------------"
+    puts params[:response_id]
+    if params[:response_id] == "1"
+      @its_one = true
+    else
+      @res = @responses[params[:response_id].to_i - 2]
+      @number = params[:response_id].to_i
+    end
 
-  puts "ここまできてるもんね"
-  erb :response
+    erb :response
+  end
 end
 
 helpers do

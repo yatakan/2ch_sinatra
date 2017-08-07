@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>自作自演板＠3ch掲示板</title>
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/javascript/link.js" type="text/javascript"></script>
   </head>
 
   <body>
@@ -18,7 +20,7 @@
       <div class="navigation">
         <ul>
           <% @threads.each.with_index(1) do |thread, i| %>
-            <li><a href="http://localhost:4567/thread/<%= thread["id"] %>">
+            <li><a href="http://localhost:4567/threads/<%= thread["id"] %>">
             <%= i %> ： <%= thread["title"] %></a></li>
           <% end %>
         </ul>
@@ -49,7 +51,7 @@
               </ul>
             <% end %>
           <ul class="local-navigation">
-            <li><a href="http://localhost:4567/thread/<%= thread["id"] %>">全部読む</a></li>
+            <li><a href="http://localhost:4567/threads/<%= thread["id"] %>">全部読む</a></li>
             <li>最新50</li>
             <li>1-100</li>
           </ul>
