@@ -39,8 +39,22 @@ get '/board' do
       @responses << result
     end
     @all_responses << @responses
-    puts @all_responses
   end
+
+  @new_responses = []
+  @count_from = []
+
+  @all_responses.each do |res|
+    if res.length > 10
+      @new_responses << res[-9..-1]
+      @count_from << res.length - 7
+    else
+      @new_responses << res
+      @count_from << 2
+    end
+  end
+
+  puts @count_from
 
   erb :board
 end
@@ -75,7 +89,11 @@ post '/thread/post' do
   results = client.query("SELECT * FROM threads")
 
   #新しいスレッドを投稿
-  client.query("INSERT INTO THREADS (title, name, mail, text, board_id, created_at, updated_at) values ('#{params[:title]}','#{params[:name]}', '#{params[:mail]}', '#{params[:text]}', 1, now(), now() )")
+  if params[:name] == ""
+    client.query("INSERT INTO THREADS (title, mail, text, board_id, created_at, updated_at) values ('#{params[:title]}', '#{params[:mail]}', '#{params[:text]}', 1, now(), now() )")
+  else
+    client.query("INSERT INTO THREADS (title, name, mail, text, board_id, created_at, updated_at) values ('#{params[:title]}','#{params[:name]}', '#{params[:mail]}', '#{params[:text]}', 1, now(), now() )")
+  end
 
   redirect "/board"
 end
@@ -89,7 +107,49 @@ end
 
 post '/responses/post/:id' do |id|
   #新しい書き込みを投稿
-  client.query("INSERT INTO RESPONSES (name, mail, text, thread_id, created_at, updated_at) values ('#{params[:name]}', '#{params[:mail]}', '#{params[:text]}', '#{id}', now(), now() )")
+  if params[:name] == ""
+    client.query("INSERT INTO RESPONSES (mail, text, thread_id, created_at, updated_at) values ('#{params[:mail]}', '#{params[:text]}', '#{id}', now(), now() )")
+  else
+    client.query("INSERT INTO RESPONSES (name, mail, text, thread_id, created_at, updated_at) values ('#{params[:name]}', '#{params[:mail]}', '#{params[:text]}', '#{id}', now(), now() )")
+  end
 
   redirect "/thread/#{id}"
+end
+
+## レス詳細ページ ##
+get '/threads/:thread_id/:response_id' do
+
+  #スレタイの取得
+  results = client.query("SELECT * FROM threads WHERE id=#{params[:thread_id]} limit 1")
+  @threads = []
+
+  results.each do |result|
+    @threads << result
+  end
+
+  #まずレス一覧を取得しておく
+  results = client.query("SELECT * FROM responses WHERE thread_id=#{params[:thread_id]}")
+  @responses = []
+  results.each do |result|
+    @responses << result
+  end
+
+  # 必要なレスを取り出して、番号を付ける。
+  puts "-------------------------------------------"
+  puts params[:response_id]
+  if params[:response_id] == "1"
+    @its_one = true
+  else
+    @res = @responses[params[:response_id].to_i - 2]
+    @number = params[:response_id].to_i
+  end
+
+  puts "ここまできてるもんね"
+  erb :response
+end
+
+helpers do
+  def datetime(time)
+    time.strftime("%Y年%m月%d日(日)%H:%M:%S")
+  end
 end

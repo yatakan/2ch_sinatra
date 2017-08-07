@@ -72,3 +72,11 @@ nav h1 {
   clear: both;
   display: block;
 }
+
+.local-navigation {
+  font-size: 13px;
+}
+
+footer {
+  text-align: center;
+}
