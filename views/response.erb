@@ -9,7 +9,6 @@
   </head>
 
   <body>
-    <p><a href="/responses/new/<%= @threads[0]["id"] %>">このスレッドに書き込む</a></p>
     <div class="thread" id="<%= @threads[0]["id"] %>">
       <h1><%= @threads[0]["title"] %></h1>
       <ul>
@@ -28,6 +27,7 @@
           <li class="text"><%= @res["text"] %></a></li>
         </ul>
       <% end %>
+      <p><a href="/responses/new/<%= @threads[0]["id"] %>">このスレッドに書き込む</a></p>
       <p><a href="/board">スレッド一覧へ戻る</a></p>
     </div>
   </body>
