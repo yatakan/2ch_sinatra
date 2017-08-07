@@ -18,7 +18,7 @@ end
 
 #####################板##############################
 get '/board' do
-  results = client.query("SELECT * FROM threads")
+  results = client.query("SELECT * FROM threads ORDER BY last_post_at DESC")
 
   #スレッド一覧の取得
   @threads = []
@@ -81,21 +81,27 @@ get '/threads/:id' do |id|
 end
 
 ##########スレ立て#####################
-get '/threads/new' do
+get '/new_thread' do
   erb :new
 end
 
-post '/thread/post' do
+post '/post_thread' do
   results = client.query("SELECT * FROM threads")
 
   #新しいスレッドを投稿
-  if params[:name] == ""
-    client.query("INSERT INTO THREADS (title, mail, text, board_id, created_at, updated_at) values ('#{params[:title]}', '#{params[:mail]}', '#{params[:text]}', 1, now(), now() )")
-  else
-    client.query("INSERT INTO THREADS (title, name, mail, text, board_id, created_at, updated_at) values ('#{params[:title]}','#{params[:name]}', '#{params[:mail]}', '#{params[:text]}', 1, now(), now() )")
-  end
 
-  redirect "/board"
+  puts @params
+
+  if params[:text] == "" || params[:title] == ""
+    erb "タイトルor本文が空っぽです。。。。。。。"
+  else
+    if params[:name] == ""
+      client.query("INSERT INTO THREADS (title, mail, text, board_id, created_at, updated_at) values ('#{params[:title]}', '#{params[:mail]}', '#{params[:text]}', 1, now(), now() )")
+    else
+      client.query("INSERT INTO THREADS (title, name, mail, text, board_id, created_at, updated_at) values ('#{params[:title]}','#{params[:name]}', '#{params[:mail]}', '#{params[:text]}', 1, now(), now() )")
+    end
+    redirect "/board"
+  end
 end
 
 #############レス#########################
@@ -106,14 +112,19 @@ get '/responses/new/:id' do |id|
 end
 
 post '/responses/post/:id' do |id|
-  #新しい書き込みを投稿
-  if params[:name] == ""
-    client.query("INSERT INTO RESPONSES (mail, text, thread_id, created_at, updated_at) values ('#{params[:mail]}', '#{params[:text]}', '#{id}', now(), now() )")
+  if params[:text] == ""
+    erb "本文が空っぽです。。。。。。。"
   else
-    client.query("INSERT INTO RESPONSES (name, mail, text, thread_id, created_at, updated_at) values ('#{params[:name]}', '#{params[:mail]}', '#{params[:text]}', '#{id}', now(), now() )")
-  end
+    #新しい書き込みを投稿
+    client.query("UPDATE threads SET last_post_at=now() WHERE id='#{id}'") unless params[:mail] == "sage"
 
-  redirect "/thread/#{id}"
+    if params[:name] == ""
+      client.query("INSERT INTO RESPONSES (mail, text, thread_id, created_at, updated_at) values ('#{params[:mail]}', '#{params[:text]}', '#{id}', now(), now() )")
+    else
+      client.query("INSERT INTO RESPONSES (name, mail, text, thread_id, created_at, updated_at) values ('#{params[:name]}', '#{params[:mail]}', '#{params[:text]}', '#{id}', now(), now() )")
+    end
+    redirect "/threads/#{id}"
+  end
 end
 
 ## レス詳細ページ ##
@@ -135,7 +146,7 @@ get '/threads/:thread_id/:response_id' do
   end
 
   #要求されたレスがない場合
-  if @responses.length < params[:response_id].to_i - 2
+  if @responses.length <= params[:response_id].to_i - 2
     erb "そんなスレor書き込みないです。。。。。。。。"
   else
     # 必要なレスを取り出して、番号を付ける。
