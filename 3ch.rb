@@ -6,7 +6,7 @@ client = Mysql2::Client.new(host:"localhost", username:"root", database:"3ch_dev
 
 ################ルーーーーーーーーーーーート#####################
 get '/' do
-  hello world
+  'hello world'
   # results = client.query("SELECT name FROM boards")
 
   # @boards = []
