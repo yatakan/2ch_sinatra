@@ -2,7 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'mysql2'
 
-client = Mysql2::Client.new(host:"localhost", username:"root", database:"3ch_development")
+# client = Mysql2::Client.new(host:"localhost", username:"root", database:"3ch_development")
 
 ################ルーーーーーーーーーーーート#####################
 get '/' do
