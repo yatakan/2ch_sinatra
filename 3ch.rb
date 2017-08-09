@@ -6,15 +6,16 @@ client = Mysql2::Client.new(host:"localhost", username:"root", database:"3ch_dev
 
 ################ルーーーーーーーーーーーート#####################
 get '/' do
-  results = client.query("SELECT name FROM boards")
+  hello world
+  # results = client.query("SELECT name FROM boards")
 
-  @boards = []
+  # @boards = []
 
-  results.each do |result|
-    @boards << result
-  end
+  # results.each do |result|
+  #   @boards << result
+  # end
 
-  erb :index
+  # erb :index
 end
 
 #####################板##############################
