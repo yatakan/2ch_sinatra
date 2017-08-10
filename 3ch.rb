@@ -2,11 +2,17 @@ require 'rubygems'
 require 'sinatra'
 require 'mysql2'
 
-# client = Mysql2::Client.new(host:"localhost", username:"root", database:"3ch_development")
+configure :production do
+end
+
+configure :development do
+  set :hoge, "hello"
+  # set :client, Mysql2::Client.new(host:"localhost", username:"root", database:"3ch_development")
+end
 
 ################ルーーーーーーーーーーーート#####################
 get '/' do
-  'hello world'
+  settings.hoge
   # results = client.query("SELECT name FROM boards")
 
   # @boards = []
