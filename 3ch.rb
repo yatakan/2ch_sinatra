@@ -105,23 +105,20 @@ get '/new_thread' do
   erb :new
 end
 
-post '/post_thread' do
+post '/post_thread/' do
   results = client.query("SELECT * FROM threads")
 
   # 新しいスレッドを投稿
-
   if params[:text] == "" || params[:title] == ""
     erb "タイトルor本文が空っぽです。。。。。。。"
   else
     if params[:name] == ""
-      # client.query("INSERT INTO THREADS (title, mail, text, board_id, created_at, updated_at) values ('#{params[:title]}', '#{params[:mail]}', '#{params[:text]}', 1, now(), now() )")
+      client.query("INSERT INTO THREADS (title, mail, text, board_id, created_at, updated_at) values ('#{params[:title]}', '#{params[:mail]}', '#{params[:text]}', 1, now(), now() )")
     else
       client.query("INSERT INTO THREADS (title, name, mail, text, board_id, created_at, updated_at) values ('#{params[:title]}','#{params[:name]}', '#{params[:mail]}', '#{params[:text]}', 1, now(), now() )")
     end
-    # redirect "/board"
+    redirect "/"
   end
-
-  'hello world'
 end
 
 #############レス#########################
