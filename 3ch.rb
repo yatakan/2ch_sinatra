@@ -3,6 +3,7 @@ require 'sinatra'
 require 'mysql2'
 
 configure :production do
+  set :hoge, "hello"
 end
 
 configure :development do
