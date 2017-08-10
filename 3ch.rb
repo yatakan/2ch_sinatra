@@ -17,28 +17,38 @@ configure :development do
   set :client, Mysql2::Client.new(host:"localhost", username:"root", database:"3ch_development")
 end
 
-################ルーーーーーーーーーーーート#####################
-get '/' do
-  client = settings.client
-  results = client.query("SELECT name FROM boards")
-
-  @boards = []
-
-  results.each do |result|
-    @boards << result
+helpers do
+  def datetime(time)
+    time.strftime("%Y年%m月%d日(日)%H:%M:%S")
   end
 
-  erb :index
+  def where_am_i
+    if settings.development?
+      "development!"
+    else
+      "not development!"
+    end
+  end
+end
+
+################ルーーーーーーーーーーーート#####################
+get '/' do
+
+  where_am_i
+  # client = settings.client
+  # results = client.query("SELECT name FROM boards")
+
+  # @boards = []
+
+  # results.each do |result|
+  #   @boards << result
+  # end
+
+  # erb :index
 end
 
 #####################板##############################
 get '/board' do
-  client = Mysql2::Client.new(
-    host:"us-cdbr-iron-east-05.cleardb.net",
-    username:"b2452d9c721521",
-    password:ENV['ENV_MYSQL_ENTER'],
-    database:"heroku_cb96b0b97e89510"
-    )
   results = client.query("SELECT * FROM threads ORDER BY last_post_at DESC")
 
   #スレッド一覧の取得
@@ -181,11 +191,5 @@ get '/threads/:thread_id/:response_id' do
     end
 
     erb :response
-  end
-end
-
-helpers do
-  def datetime(time)
-    time.strftime("%Y年%m月%d日(日)%H:%M:%S")
   end
 end
