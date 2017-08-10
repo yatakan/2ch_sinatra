@@ -31,7 +31,7 @@
 
     <div class="contents">
       <% @threads.zip(@new_responses, @count_from).each do |thread, responses, count| %>
-        <div class="thread" id="thread['id']">
+        <div class="thread" id=<%= "thread['id']" %>>
           <h1><a href="threads/<%= thread["id"] %>"><%= thread["title"] %></a></h1>
           <ul>
             <li>1</li>
