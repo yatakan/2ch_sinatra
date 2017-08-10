@@ -40,8 +40,8 @@ end
 
 #####################板##############################
 get '/board' do
-  # client = where_am_i
-  # results = client.query("SELECT * FROM threads ORDER BY last_post_at DESC")
+  client = where_am_i
+  results = client.query("SELECT * FROM threads ORDER BY last_post_at DESC")
 
   # #スレッド一覧の取得
   # @threads = []
