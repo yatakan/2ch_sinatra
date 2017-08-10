@@ -49,8 +49,6 @@ get '/board' do
   results.each do |result|
     @threads << result
   end
-
-  '#{@threads}'
   # 全ての書き込みを取得する
 
   @all_responses = []
