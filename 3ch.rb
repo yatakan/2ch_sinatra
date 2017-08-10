@@ -65,18 +65,18 @@ get '/board' do
     @all_responses << @responses
   end
 
-  # @new_responses = []
-  # @count_from = []
+  @new_responses = []
+  @count_from = []
 
-  # @all_responses.each do |res|
-  #   if res.length > 10
-  #     @new_responses << res[-9..-1]
-  #     @count_from << res.length - 7
-  #   else
-  #     @new_responses << res
-  #     @count_from << 2
-  #   end
-  # end
+  @all_responses.each do |res|
+    if res.length > 10
+      @new_responses << res[-9..-1]
+      @count_from << res.length - 7
+    else
+      @new_responses << res
+      @count_from << 2
+    end
+  end
 
   erb :board
 end
