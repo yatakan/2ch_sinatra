@@ -100,7 +100,7 @@ get '/threads/:id' do |id|
   erb :thread
 end
 
-##########スレ立て#####################
+##########スレ立て#######################
 get '/new_thread' do
   erb :new
 end
