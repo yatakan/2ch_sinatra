@@ -40,6 +40,7 @@ end
 
 #####################板##############################
 get '/board' do
+  client = where_am_i
   results = client.query("SELECT * FROM threads ORDER BY last_post_at DESC")
 
   #スレッド一覧の取得
@@ -51,32 +52,32 @@ get '/board' do
 
   #全ての書き込みを取得する
 
-  # @all_responses = []
+  @all_responses = []
 
-  # @threads.each do |thread|
-  #   thread_id = thread["id"]
-  #   results = client.query("SELECT * FROM responses WHERE thread_id=#{thread_id}")
-  #   @responses = []
-  #   results.each do |result|
-  #     @responses << result
-  #   end
-  #   @all_responses << @responses
-  # end
+  @threads.each do |thread|
+    thread_id = thread["id"]
+    results = client.query("SELECT * FROM responses WHERE thread_id=#{thread_id}")
+    @responses = []
+    results.each do |result|
+      @responses << result
+    end
+    @all_responses << @responses
+  end
 
-  # @new_responses = []
-  # @count_from = []
+  @new_responses = []
+  @count_from = []
 
-  # @all_responses.each do |res|
-  #   if res.length > 10
-  #     @new_responses << res[-9..-1]
-  #     @count_from << res.length - 7
-  #   else
-  #     @new_responses << res
-  #     @count_from << 2
-  #   end
-  # end
+  @all_responses.each do |res|
+    if res.length > 10
+      @new_responses << res[-9..-1]
+      @count_from << res.length - 7
+    else
+      @new_responses << res
+      @count_from << 2
+    end
+  end
 
-  # erb :board
+  erb :board
 end
 
 ##################スレ###########################
