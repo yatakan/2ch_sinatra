@@ -4,47 +4,38 @@ require 'mysql2'
 
 ## 本番環境とローカル環境でそれぞれの変数を設定。
 
-configure :production do
-  set :client, Mysql2::Client.new(
-    host:"us-cdbr-iron-east-05.cleardb.net",
-    username:"b2452d9c721521",
-    password:ENV['ENV_MYSQL_ENTER'],
-    database:"heroku_cb96b0b97e89510"
-    )
-end
-
-configure :development do
-  set :client, Mysql2::Client.new(host:"localhost", username:"root", database:"3ch_development")
-end
-
 helpers do
   def datetime(time)
     time.strftime("%Y年%m月%d日(日)%H:%M:%S")
   end
-
-  def where_am_i
-    if settings.development?
-      "development!"
-    else
-      "not development!"
-    end
-  end
 end
+
+def where_am_i
+    if settings.development?
+      client = Mysql2::Client.new(host:"localhost", username:"root", database:"3ch_development")
+    else
+      client = Mysql2::Client.new(
+      host:"us-cdbr-iron-east-05.cleardb.net",
+      username:"b2452d9c721521",
+      password:ENV['ENV_MYSQL_ENTER'],
+      database:"heroku_cb96b0b97e89510"
+      )
+    end
+end
+
+client = where_am_i
 
 ################ルーーーーーーーーーーーート#####################
 get '/' do
+  results = client.query("SELECT name FROM boards")
 
-  where_am_i
-  # client = settings.client
-  # results = client.query("SELECT name FROM boards")
+  @boards = []
 
-  # @boards = []
+  results.each do |result|
+    @boards << result
+  end
 
-  # results.each do |result|
-  #   @boards << result
-  # end
-
-  # erb :index
+  erb :index
 end
 
 #####################板##############################
