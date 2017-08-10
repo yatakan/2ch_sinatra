@@ -43,14 +43,14 @@ get '/board' do
   client = where_am_i
   results = client.query("SELECT * FROM threads ORDER BY last_post_at DESC")
 
-  # #スレッド一覧の取得
-  # @threads = []
+  #スレッド一覧の取得
+  @threads = []
 
-  # results.each do |result|
-  #   @threads << result
-  # end
+  results.each do |result|
+    @threads << result
+  end
 
-  # '#{@threads}'
+  '#{@threads}'
   # 全ての書き込みを取得する
 
   # @all_responses = []
