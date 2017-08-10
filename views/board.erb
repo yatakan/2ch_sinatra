@@ -34,7 +34,10 @@
         <div class="thread" id="<%= thread['id'] %>">
           <h1><a href="threads/<%= thread["id"] %>"><%= thread["title"] %></a></h1>
           <ul>
-            <li><%= thread["name"] %></li>
+            <li>1</li>
+            <li><a href="mailto:<%= thread["mail"] %>"><%= thread["name"] %></a></li>
+            <li>ID: Nanashi01</li>
+            <li class="text"><%= thread["text"] %></li>
           </ul>
           <% responses.each.with_index(count.to_i) do |res, i| %>
           <% end %>
