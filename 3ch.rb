@@ -53,17 +53,17 @@ get '/board' do
   '#{@threads}'
   # 全ての書き込みを取得する
 
-  # @all_responses = []
+  @all_responses = []
 
-  # @threads.each do |thread|
-  #   thread_id = thread["id"]
-  #   results = client.query("SELECT * FROM responses WHERE thread_id=#{thread_id}")
-  #   @responses = []
-  #   results.each do |result|
-  #     @responses << result
-  #   end
-  #   @all_responses << @responses
-  # end
+  @threads.each do |thread|
+    thread_id = thread["id"]
+    results = client.query("SELECT * FROM responses WHERE thread_id=#{thread_id}")
+    @responses = []
+    results.each do |result|
+      @responses << result
+    end
+    @all_responses << @responses
+  end
 
   # @new_responses = []
   # @count_from = []
