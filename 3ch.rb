@@ -52,29 +52,31 @@ get '/board' do
 
   #全ての書き込みを取得する
 
-  @all_responses = []
+  'hello world'
 
-  @threads.each do |thread|
-    thread_id = thread["id"]
-    results = client.query("SELECT * FROM responses WHERE thread_id=#{thread_id}")
-    @responses = []
-    results.each do |result|
-      @responses << result
-    end
-    @all_responses << @responses
-  end
+  # @all_responses = []
 
-  @new_responses = []
-  @count_from = []
+  # @threads.each do |thread|
+  #   thread_id = thread["id"]
+  #   results = client.query("SELECT * FROM responses WHERE thread_id=#{thread_id}")
+  #   @responses = []
+  #   results.each do |result|
+  #     @responses << result
+  #   end
+  #   @all_responses << @responses
+  # end
 
-  @all_responses.each do |res|
-    if res.length > 10
-      @new_responses << res[-9..-1]
-      @count_from << res.length - 7
-    else
-      @new_responses << res
-      @count_from << 2
-    end
+  # @new_responses = []
+  # @count_from = []
+
+  # @all_responses.each do |res|
+  #   if res.length > 10
+  #     @new_responses << res[-9..-1]
+  #     @count_from << res.length - 7
+  #   else
+  #     @new_responses << res
+  #     @count_from << 2
+  #   end
   end
 
   erb :board
