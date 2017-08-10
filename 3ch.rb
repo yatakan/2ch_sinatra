@@ -3,6 +3,7 @@ require 'sinatra'
 require 'mysql2'
 
 ## 本番環境とローカル環境でそれぞれの変数を設定。
+
 configure :production do
   set :client, Mysql2::Client.new(
     host:"us-cdbr-iron-east-05.cleardb.net",
@@ -32,6 +33,12 @@ end
 
 #####################板##############################
 get '/board' do
+  client = Mysql2::Client.new(
+    host:"us-cdbr-iron-east-05.cleardb.net",
+    username:"b2452d9c721521",
+    password:ENV['ENV_MYSQL_ENTER'],
+    database:"heroku_cb96b0b97e89510"
+    )
   results = client.query("SELECT * FROM threads ORDER BY last_post_at DESC")
 
   #スレッド一覧の取得
