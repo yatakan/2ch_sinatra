@@ -7,7 +7,7 @@ configure :production do
   set :client, Mysql2::Client.new(
     host:"us-cdbr-iron-east-05.cleardb.net",
     username:"b2452d9c721521",
-    password:ENV['ENV_MYSQL_ENTER']
+    password:ENV['ENV_MYSQL_ENTER'],
     database:"heroku_cb96b0b97e89510"
     )
 end
