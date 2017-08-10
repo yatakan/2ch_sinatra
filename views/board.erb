@@ -40,10 +40,6 @@
             <li>ID: Nanashi01</li>
             <li class="text"><%= thread["text"] %></li>
           </ul>
-          <% responses.each.with_index(count.to_i) do |res, i| %>
-            <ul>
-            </ul>
-          <% end %>
           <ul class="local-navigation">
             <li><a href="threads/<%= thread["id"] %>">全部読む</a></li>
             <li>最新50</li>
