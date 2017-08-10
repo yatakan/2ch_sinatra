@@ -42,10 +42,7 @@
           </ul>
           <% responses.each.with_index(count.to_i) do |res, i| %>
             <ul>
-              <li><a href="mailto:<%= res["mail"] %>"><%= res["name"] %></a></li>
-              <li><%= datetime(res["created_at"]) %></li>
-              <li>ID: Nanashi01</li>
-              <li class="text"><%= res["text"] %></a></li>
+              <li><%= i %></li>
             </ul>
           <% end %>
           <ul class="local-navigation">
