@@ -76,8 +76,6 @@ get '/board' do
     end
   end
 
-  puts @count_from
-
   erb :board
 end
 
@@ -129,7 +127,7 @@ end
 #############レス#########################
 get '/responses/new/:id' do |id|
   @id = id
-  puts @id
+
   erb :res_new
 end
 
@@ -172,8 +170,7 @@ get '/threads/:thread_id/:response_id' do
     erb "そんなスレor書き込みないです。。。。。。。。"
   else
     # 必要なレスを取り出して、番号を付ける。
-    puts "-------------------------------------------"
-    puts params[:response_id]
+
     if params[:response_id] == "1"
       @its_one = true
     else
