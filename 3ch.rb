@@ -106,6 +106,7 @@ get '/new_thread' do
 end
 
 post '/post_thread' do
+  'hello world'
   # results = client.query("SELECT * FROM threads")
 
   # #新しいスレッドを投稿
